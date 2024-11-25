@@ -1,8 +1,8 @@
 // import site_bg from './assets/image.png'
 import "./App.css";
 
-import Header from "./components/header/header";
-import FormCard from "./components/form-card/form_card";
+import Header from "./components/page_01_02/header/header";
+import FormCard from "./components/page_01_02/form-card/form_card";
 function App() {
   return (
     <div className="content">

@@ -7,7 +7,7 @@ function FormCard() {
     <div className="card">
       <div className="aadl-logo-1"></div>
       <NumbersLine></NumbersLine>
-      <Form></Form>
+      <Form pageNumber={2}> </Form>
     </div>
   );
 }
