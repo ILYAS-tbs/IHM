@@ -5,6 +5,7 @@ import { useState } from "react";
 
 interface FormInterface {
   pageNumber: number;
+  children?: React.ReactNode; // Allows optional child elements
 }
 
 function Form(props: FormInterface) {
