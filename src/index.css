@@ -30,6 +30,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  
 }
 
 h1 {
@@ -76,4 +77,6 @@ button:focus-visible {
 body,html {
   margin: 0;
   padding: 0;
+
+  max-height: 100vh;
 }

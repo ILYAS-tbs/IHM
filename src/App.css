@@ -54,7 +54,7 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('assets/bg.png');
+  background-image: url('assets/bg.webp');
   background-size: cover;
   background-position: center;
   filter: blur(4px);
@@ -65,6 +65,8 @@ body::before {
   width: 100vw;
   height: 100vh;
 
+  max-height: 100vh;
+
   margin: 0px;
   padding:  0px;
 
@@ -72,6 +74,10 @@ body::before {
   flex-direction: column;
   /* background-color: red; */
   justify-content: flex-start;
+
+  overflow-x: hidden;
+
+  /* scroll-behavior: smooth; */
 }
 
 
