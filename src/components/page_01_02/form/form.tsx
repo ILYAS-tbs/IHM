@@ -12,6 +12,7 @@ import nin from "../../../assets/nin.png";
 interface FormInterface {
   pageNumber: number;
   hide_show_numberLine: any;
+  setIsAdleLogoVisible: any;
   children?: React.ReactNode; // Allows optional child elements
 }
 
@@ -139,6 +140,7 @@ function Form(props: FormInterface) {
   };
 
   function showTerms() {
+    props.setIsAdleLogoVisible(false);
     setCurrentPage(4);
   }
   function navigatePage(page: number) {
@@ -147,6 +149,7 @@ function Form(props: FormInterface) {
 
   function accept(isAccepted: boolean) {
     setAccepted(isAccepted);
+    props.setIsAdleLogoVisible(true);
     navigatePage(3);
   }
   // ! page 01 :
