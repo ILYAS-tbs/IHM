@@ -1,26 +1,46 @@
-#circle-container{ 
+/* Container for circles and lines */
+#circle-container {
     display: flex;
-    height: 80;
-    width: 100%;
-
-    justify-content: space-between;
     align-items: center;
-}
-
-.circle{ 
-    height: 32px;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  /* Circle styles */
+  .circle {
     width: 32px;
-    background-color: #3E6F9E;
-
-    border-radius: 16px;
-}
-
-.line{ 
-    height: 3px;
-    width: 30%;
-    background-color: #3E6F9E;
-
-    display: inline;
-
-    
-}
+    height: 32px;
+    border-radius: 50%;
+    background-color: gray; /* Default color for inactive circles */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Active circle (colored) */
+  .circle.active {
+    background-color: #3E6F9E; /* Active color for the circle */
+    transform: scale(1.2); /* Optional: Add a subtle scaling effect */
+  }
+  
+  /* Inactive circle (gray) */
+  .circle.inactive {
+    background-color: gray; /* Inactive color for the circle */
+  }
+  
+  /* Line styles */
+  .line {
+    width: 50px;
+    height: 2px;
+    background-color: #3E6F9E; /* Default color for inactive lines */
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Active line (colored) */
+  .line.active-line {
+    background-color: #3E6F9E; /* Active color for the line */
+  }
+  

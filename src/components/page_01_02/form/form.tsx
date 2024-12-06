@@ -14,6 +14,7 @@ import nin from "../../../assets/NIN.png";
 interface FormInterface {
   pageNumber: number;
   hide_show_numberLine: any;
+  setActiveBubble: any;
   setIsAdleLogoVisible: any;
   children?: React.ReactNode; // Allows optional child elements
 }
@@ -238,6 +239,9 @@ function Form(props: FormInterface) {
 
   // ! page 01 :
   if (currentPage == 1) {
+    // NUMBER LINE CONFIGS
+    props.hide_show_numberLine(true);
+    props.setActiveBubble(1);
     // HIDE THE aadle LOGO
     props.setIsAdleLogoVisible(true);
 
@@ -309,6 +313,9 @@ function Form(props: FormInterface) {
 
     // ! page 02 :
   } else if (currentPage == 2) {
+    // NUMBER LINE CONFIGS
+    props.hide_show_numberLine(true);
+    props.setActiveBubble(2);
     // HIDE THE aadle LOGO
     props.setIsAdleLogoVisible(true);
 
@@ -409,6 +416,9 @@ function Form(props: FormInterface) {
     );
     // ! PAGE 03
   } else if (currentPage == 3) {
+    // NUMBER LINE CONFIGS
+    props.hide_show_numberLine(true);
+    props.setActiveBubble(3);
     return (
       <div className="form-container">
         {/* ! spaing  */}
@@ -463,6 +473,9 @@ function Form(props: FormInterface) {
     );
     //! PAGE 04
   } else if (currentPage == 4) {
+    // NUMBER LINE CONFIGS
+    props.hide_show_numberLine(false);
+    // props.setActiveBubble(1)
     return (
       <div className="form-container" style={{ marginTop: "16px" }}>
         {/* ! spaing  */}
@@ -528,6 +541,9 @@ function Form(props: FormInterface) {
       </div>
     );
   } else if (currentPage == 5) {
+    // NUMBER LINE CONFIGS
+    props.hide_show_numberLine(false);
+    // props.setActiveBubble(1);
     // HIDE THE aadle LOGO
     props.setIsAdleLogoVisible(false);
 
