@@ -7,8 +7,10 @@ import captcha_img from "../../../assets/captcha_full.png";
 import terms_img from "../../../assets/terms_logo.png";
 import question_svg from "../../../assets/question_mark.svg";
 
+import correct_logo from "../../../assets/icons8-correct-64.svg";
+
 import nss from "../../../assets/nss.png";
-import nin from "../../../assets/nin.png";
+import nin from "../../../assets/NIN.png";
 interface FormInterface {
   pageNumber: number;
   hide_show_numberLine: any;
@@ -19,14 +21,25 @@ interface FormInterface {
 function Form(props: FormInterface) {
   const [currentPage, setCurrentPage] = useState(props.pageNumber);
 
+  // ! i only need to enable-disable NEXT for page 01 and 02
+  //! dependingon valid and green
+  // page 01 : has phone number and wilya
+  // page 02 : has NIN and NSS
+  const [page_01_continue, set_page_01_continue] = useState(false);
+  const [page_02_continue, set_page_02_continue] = useState(false);
+
   const [phoneNumber, setPhoneNumber] = useState<String>("+213");
+  const [phoneNumberGreen, setPhoneNumberGreen] = useState(false);
 
   const [notARobot, setNotARobot] = useState(false);
 
   const [selectedWilaya, setSelectedWilaya] = useState("ولاية الإقامة");
 
   const [NIN, setNIN] = useState("");
+  const [NINGreen, setNINGreen] = useState(false);
+
   const [NSS, setNSS] = useState("");
+  const [NSSGreen, setNSSGreen] = useState(false);
 
   const [accepted, setAccepted] = useState(false);
 
@@ -90,6 +103,12 @@ function Form(props: FormInterface) {
     if (inputValue.length > 12) {
       inputValue = inputValue.slice(0, 12);
     }
+    // ! green it :
+    if (inputValue.length == 12 && validPhoneNumber) {
+      setPhoneNumberGreen(true);
+    } else {
+      setPhoneNumberGreen(false);
+    }
 
     // ! valid phone number :
     if (inputValue[3] == 6 || inputValue[3] == 7 || inputValue[3] == 5) {
@@ -117,15 +136,33 @@ function Form(props: FormInterface) {
     }
     setPhoneNumber(inputValue);
   };
+  // ! NIN AND ITS VALIDATION
+  const [validNIN, setValidNIN] = useState(true);
 
   const handleNINchange = (event: any) => {
     let inputValue = event.target.value;
 
     // ! clean it and rreplace non-numeric characters :
     inputValue = inputValue.replace(/[^0-9]/g, "");
-    if (inputValue.length > 12) {
-      inputValue = inputValue.slice(0, 12);
+    if (inputValue.length > 18) {
+      inputValue = inputValue.slice(0, 18);
     }
+
+    // ! Green it :
+    if (inputValue.length == 18 && search_forNIN_user(inputValue)) {
+      setNINGreen(true);
+      setValidNIN(true);
+    } else {
+      // todo : condition here is :: length<>18 or ninUser_doesnt_exist :
+      setNINGreen(false);
+      // ! edge case for the NIN :
+      if (inputValue.length < 18) {
+        setValidNIN(true);
+      } else {
+        setValidNIN(false);
+      }
+    }
+
     setNIN(inputValue); // Update the state with the input value
   };
   const handleNSSchange = (event: any) => {
@@ -135,6 +172,12 @@ function Form(props: FormInterface) {
     inputValue = inputValue.replace(/[^0-9]/g, "");
     if (inputValue.length > 12) {
       inputValue = inputValue.slice(0, 12);
+    }
+    //! Green it :
+    if (inputValue.length == 12) {
+      setNSSGreen(true);
+    } else {
+      setNSSGreen(false);
     }
     setNSS(inputValue); // Update the state with the input value
   };
@@ -147,13 +190,57 @@ function Form(props: FormInterface) {
     setCurrentPage(page);
   }
 
+  function go_to_page02() {
+    if (validPhoneNumber && phoneNumberGreen) {
+      navigatePage(2);
+    }
+  }
+
   function accept(isAccepted: boolean) {
     setAccepted(isAccepted);
     props.setIsAdleLogoVisible(true);
     navigatePage(3);
   }
+  function handleGoToTheLastPage() {
+    if (accepted && notARobot) {
+      navigatePage(5);
+    }
+  }
+
+  // ! fake database operations :
+
+  const fake_NIN_database = [
+    "111111111111111111",
+    "222222222222222222",
+    "333333333333333333",
+    "444444444444444444",
+    "555555555555555555",
+    "666666666666666666",
+    "777777777777777777",
+    "888888888888888888",
+    "999999999999999999",
+  ];
+
+  function search_forNIN_user(NIN: String): boolean {
+    let exist = false;
+
+    fake_NIN_database.forEach((nin) => {
+      if (nin == NIN.toString()) {
+        exist = true;
+      }
+    });
+
+    console.log(`AFTER COMPARING WE HAVE : ${exist}`);
+    console.log(`${NIN.length} NIN ${NIN}`);
+
+    return exist;
+  }
+
   // ! page 01 :
   if (currentPage == 1) {
+    // HIDE THE aadle LOGO
+    props.setIsAdleLogoVisible(true);
+
     return (
       <div className="form-container">
         {/* ! spaing  */}
@@ -162,7 +249,9 @@ function Form(props: FormInterface) {
         {/* PHONE NUMBER */}
         <h1 className="field-text">رقم الهاتف النقال</h1>
         <input
-          className="phone-input-field"
+          className={
+            phoneNumberGreen ? "phone-input-field green" : "phone-input-field"
+          }
           type="text"
           value={phoneNumber.toString()}
           onChange={handlePhoneNumberChange}
@@ -203,7 +292,15 @@ function Form(props: FormInterface) {
         {/* SUBMIT BUTTONS  */}
         <div className="buttons-container">
           {/* <button id="cancel-txt">إلغاء </button> */}
-          <button id="continue-button" onClick={() => navigatePage(2)}>
+          <button
+            id="continue-button"
+            className={
+              validPhoneNumber && phoneNumberGreen
+                ? ""
+                : "page-one-two-grayable"
+            }
+            onClick={go_to_page02}
+          >
             متابعة
           </button>
         </div>
@@ -212,6 +309,9 @@ function Form(props: FormInterface) {
 
     // ! page 02 :
   } else if (currentPage == 2) {
+    // HIDE THE aadle LOGO
+    props.setIsAdleLogoVisible(true);
+
     return (
       <div className="form-container">
         {/* ! spaing  */}
@@ -221,16 +321,15 @@ function Form(props: FormInterface) {
         <h1 className="field-text"> رقم التعريف الوطني - NIN </h1>
         <div className="input-postIcons-container">
           <input
-            className="phone-input-field"
+            className={
+              NINGreen ? "phone-input-field green" : "phone-input-field"
+            }
             type="text"
             placeholder="NIN"
             value={NIN.toString()}
             onChange={handleNINchange}
           />
-          <a
-            href="https://lh3.googleusercontent.com/proxy/Uv5DeVArzf9niTbv9cD7ekoC3dC-gHV4EWQVgNejQU8OBion4Y3GWWkIcppw0jZIDUnKX5fVWu54IXS_nNHXsv8CvCvLkV8"
-            target="_blank"
-          >
+          <a href={nin} target="_blank">
             <svg
               width="24px"
               height="24px"
@@ -247,6 +346,11 @@ function Form(props: FormInterface) {
             </svg>
           </a>
         </div>
+        {/* todo : NIN ERROR */}
+        <div className={validNIN ? "hint-txt validNIN" : "hint-txt inValidNIN"}>
+          لا يوجد مستعمل بهذا الرقم
+        </div>
+
         {/* WILIAYA */}
         {/* WILIAYA */}
         <div className="spacer"></div>
@@ -255,7 +359,9 @@ function Form(props: FormInterface) {
         <h1 className="field-text"> رقم الضمان الإجتماعي- NSS</h1>
         <div className="input-postIcons-container">
           <input
-            className="phone-input-field"
+            className={
+              NSSGreen ? "phone-input-field green" : "phone-input-field"
+            }
             type="text"
             placeholder="NSS"
             value={NSS.toString()}
@@ -287,7 +393,15 @@ function Form(props: FormInterface) {
           <button id="cancel-txt" onClick={() => navigatePage(1)}>
             إلغاء
           </button>
-          <button id="continue-button" onClick={() => navigatePage(3)}>
+          <button
+            id="continue-button"
+            onClick={() => {
+              if (NINGreen && NSSGreen) {
+                navigatePage(3);
+              }
+            }}
+            className={NINGreen && NSSGreen ? "" : "page-one-two-grayable"}
+          >
             متابعة
           </button>
         </div>
@@ -340,6 +454,7 @@ function Form(props: FormInterface) {
           <button
             id="grayable-button"
             className={accepted && notARobot ? "normal" : "grayable"}
+            onClick={() => handleGoToTheLastPage()}
           >
             متابعة
           </button>
@@ -410,6 +525,100 @@ function Form(props: FormInterface) {
             </button>
           </div>
         </div>
+      </div>
+    );
+  } else if (currentPage == 5) {
+    // HIDE THE aadle LOGO
+    props.setIsAdleLogoVisible(false);
+
+    return (
+      <div className="last-page-form-container">
+        <h1 id="last-page-title"> اكتملت عملية التسجيل</h1>
+        <h1 id="last-page-sub-title"> يرجى التحقق من المعلومات الشخصية</h1>
+
+        {/* the fields */}
+        {/* PHONE NUMBER */}
+        <h1 className="field-text"> رقم الهاتف النقال</h1>
+        <div className="input-and-update-container">
+          <div onClick={() => navigatePage(1)} className="update-buttons">
+            تعديل
+          </div>
+          <input
+            className={
+              phoneNumberGreen ? "phone-input-field green" : "phone-input-field"
+            }
+            type="text"
+            // placeholder="NIN"
+            value={phoneNumber.toString()}
+            // onChange={handleNINchange}
+          />
+        </div>
+        {/* WILIAYA */}
+        <h1 className="field-text"> ولاية الإقامة</h1>
+
+        <div className="input-and-update-container">
+          <div onClick={() => navigatePage(1)} className="update-buttons">
+            تعديل
+          </div>
+          <input
+            className="phone-input-field"
+            type="text"
+            // placeholder="NIN"
+            value={selectedWilaya.toString()}
+            // onChange={handleNINchange}
+          />
+        </div>
+        {/* NIN NUMBER*/}
+        <h1 className="field-text">رقم التعريف الوطني - NIN</h1>
+
+        <div className="input-and-update-container">
+          <div onClick={() => navigatePage(2)} className="update-buttons">
+            تعديل
+          </div>
+          <input
+            className={
+              NINGreen ? "phone-input-field green" : "phone-input-field"
+            }
+            type="text"
+            // placeholder="NIN"
+            value={NIN.toString()}
+            // onChange={handleNINchange}
+          />
+        </div>
+        {/* NSS NUMBER */}
+        <h1 className="field-text">رقم الضمان الإجتماعي- NSS</h1>
+
+        <div className="input-and-update-container">
+          <div onClick={() => navigatePage(2)} className="update-buttons">
+            تعديل
+          </div>
+          <input
+            className={
+              NSSGreen ? "phone-input-field green" : "phone-input-field"
+            }
+            type="text"
+            // placeholder="NIN"
+            value={NSS.toString()}
+            // onChange={handleNINchange}
+          />
+        </div>
+        {/* SUBMIT BUTTONS  */}
+        <div className="buttons-container">
+          <button id="continue-button" onClick={() => navigatePage(6)}>
+            تأكيد
+          </button>
+        </div>
+      </div>
+    );
+  } else if (currentPage == 6) {
+    // HIDE THE aadle LOGO
+    props.setIsAdleLogoVisible(false);
+
+    return (
+      <div className="submission-successful">
+        <img height="128px" width="128px" src={correct_logo} alt="" />
+        <h1>تمت عملية التسجيل بنجاح</h1>
+        <h2>يرجى زيارة الموقع لاحقا للاطلاع على النتائج</h2>
       </div>
     );
   }

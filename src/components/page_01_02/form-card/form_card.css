@@ -1,8 +1,12 @@
 
 .card{ 
-    height: 60%;
-    max-height: 500px;
+      /*  todo : note dont set height nor max height it'll cause problems */
+    /* height: 60%; */
+    /* max-height: 500px; */
     border: 1px solid rgb(255, 255, 255);
+
+    /* ! NOTE  : even setting min height causes problems*/
+    /* min-height: 400px; */
 
     
     width: 300px;
@@ -12,7 +16,7 @@
 
     background: rgb(255, 255, 255,0.5);
 
-    margin: auto auto;
+    margin: 32px auto;
     /* margin-bottom: 128px; */
 
     padding: 24px;
