@@ -5,11 +5,11 @@ import captcha_img from "../../../assets/captcha_full.png";
 // ! this contains both the form and the buttons for submission
 
 import terms_img from "../../../assets/terms_logo.png";
-import question_svg from "../../../assets/question_mark.svg";
+// import question_svg from "../../../assets/question_mark.svg";
 
 import correct_logo from "../../../assets/icons8-correct-64.svg";
 
-import nss from "../../../assets/nss.png";
+// import nss from "../../../assets/nss.png";
 import nin from "../../../assets/NIN.png";
 interface FormInterface {
   pageNumber: number;
@@ -25,8 +25,8 @@ function Form(props: FormInterface) {
   //! dependingon valid and green
   // page 01 : has phone number and wilya
   // page 02 : has NIN and NSS
-  const [page_01_continue, set_page_01_continue] = useState(false);
-  const [page_02_continue, set_page_02_continue] = useState(false);
+  // const [page_01_continue, set_page_01_continue] = useState(false);
+  // const [page_02_continue, set_page_02_continue] = useState(false);
 
   const [phoneNumber, setPhoneNumber] = useState<String>("+213");
   const [phoneNumberGreen, setPhoneNumberGreen] = useState(false);
