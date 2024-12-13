@@ -39,3 +39,7 @@ npm run dev
 - ..
 - ..
 - [99.......]( 18 times)
+
+### Screens :
+
+- as for V1 the site looks best onb larger screens (Desktop .. ) However it still looks decent enough in multiple phone screen sizes
