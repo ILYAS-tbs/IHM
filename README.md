@@ -23,19 +23,19 @@ npm install
 npm run dev
 ```
 
-## 3. Deployment :
+## 3. Deployment link (in vercel):
 
 - [Deployment - V.1.0 ](https://ihm-six.vercel.app/)
 
 ## Notes :
 
-- for the NIN number we simulated a fake-database so the only number which will be accepted are :
+### for the NIN number we simulated a fake-database so the only numbers which will be accepted are :
 
-* [111111111111111111] ( 18 times)
-* [22.......] ( 18 times)
-* [33.....] ( 18 times)
-* [44....] ( 18 times)
-  .
-  .
-  .
-* [99.......]( 18 times)
+- [111111111111111111] ( 18 times)
+- [22.......] ( 18 times)
+- [33.....] ( 18 times)
+- [44....] ( 18 times)
+- ..
+- ..
+- ..
+- [99.......]( 18 times)
