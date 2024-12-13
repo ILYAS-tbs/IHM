@@ -1,50 +1,28 @@
-# React + TypeScript + Vite
+# IHM : A Remake for a website design
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+this project was a practise for some of the fundementals of (IHM : Human machine interaction)
+which is a sub-field of UX/UI focusing on making a good experience and easy time for users of your system interfaces
 
-Currently, two official plugins are available:
+## prerequisites:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+you should have "node" and "npm" installed on your system :
 
-## Expanding the ESLint configuration
+- link for isntallation :https://nodejs.org/en
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 1. BUILD the project :
 
-- Configure the top-level `parserOptions` property like this:
+in the ./ parent directory of the project run
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 2. Run command :
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+npm run dev
 ```
+
+## 3. Deployment :
+
+- [Deployment - V.1.0 ](https://ihm-six.vercel.app/)
